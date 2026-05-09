@@ -1,0 +1,41 @@
+.box {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+}
+
+.box-heading {
+    font-size: 30px;
+}
+
+.box-button {
+    background-color: #FFEA6C;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.box-button:hover {
+    background-color: #FFFBA7;
+    cursor: pointer;
+}
+
+.box-button span {
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+}

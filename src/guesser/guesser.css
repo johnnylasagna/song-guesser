@@ -1,0 +1,130 @@
+.guesser {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 75px;
+
+    border-radius: 20px;
+    background-color: #FFEA6C;
+    padding: 40px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.guesser-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.guesser-cover {
+    width: 300px;
+    height: 300px;
+    border: thick black solid;
+    border-radius: 20px;
+    background-color: #FFEA6C;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    display: flex;
+}
+
+.guess-volume-icon {
+    font-size: 50px;
+    transition: font-size 0.5s ease;
+}
+
+.guesser-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.guesser-input {
+    width: 200px;
+    height: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.guesser-button {
+    font-size: 16px;
+    border: 2px black solid;
+    border-radius: 20px;
+    padding: 7.5px;
+    cursor: pointer;
+
+    background-color: white;
+}
+
+.guesser-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    transition: all 0.5s ease;
+}
+
+.guesser-list-heading {
+    width: 95%;
+    display: flex;
+    flex-direction: row;   
+    align-items: center;
+    justify-content: space-between;
+}
+
+.guesser-list-song {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between;  */
+    gap: 20px;
+
+    width: 350px;
+
+    border-radius: 20px;
+    background-color: #FFEA6C;
+    padding: 10px;
+}
+
+.guesser-list-song:hover {
+    background-color: #FFFBA7;
+    cursor: pointer;
+}
+
+.guesser-list-thumbnail {
+    width: 50px;
+    height: 50px;
+    border: thick black solid;
+    border-radius: 10px;
+    background-color: #FFEA6C;
+    overflow: hidden;
+}
+
+.guesser-list-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.guesser-list-title {
+    max-width: 300px;
+
+}
+
+.guesser-list-song.correct {
+    background-color: rgb(43, 181, 43);
+}
+
+.guesser-list-song.wrong {
+    background-color: rgb(244, 60, 60);
+}

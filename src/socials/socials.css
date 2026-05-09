@@ -1,0 +1,17 @@
+.socials {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 20px;
+}
+
+.social-link {
+    text-decoration: none;
+    color: black;
+}
