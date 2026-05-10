@@ -6,3 +6,8 @@
     align-self: center;
     flex: 1;
 }
+
+.heading:hover {
+    cursor: pointer;
+    color: #FFB3FF;
+}

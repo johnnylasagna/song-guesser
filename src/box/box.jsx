@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYoutube, faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { faYoutube, faSpotify, faItunes } from "@fortawesome/free-brands-svg-icons";
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 
 import './box.css'
@@ -21,10 +21,10 @@ function Box({ type, setShowGuesser }) {
             icon = faSpotify;
             buttonText = "Upload Spotify Playlist";
             break;
-        case "local":
-            heading = "Local";
+        case "apple":
+            heading = "Apple";
             icon = faMusic;
-            buttonText = "Upload Local songs";
+            buttonText = "Upload Apple Music Playlist";
             break;
         default:
             break;

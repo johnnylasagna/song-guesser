@@ -1,8 +1,10 @@
 import './heading.css'
 
-function Heading({text}) {
+function Heading({text, setShowGuesser}) {
     return (
-        <span className="heading">{text}</span>
+        <span className="heading" onClick={() => setShowGuesser(false)}>
+            {text}
+        </span>
     )
 }
 
