@@ -179,6 +179,7 @@
   .guesser {
     width: 70%;
     flex-direction: column;
+    gap: 30px;
   }
   .guesser-list-song {
     width: 100%;

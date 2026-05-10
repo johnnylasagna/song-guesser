@@ -19,12 +19,13 @@
 
 @media (max-width: 768px) {
   .main {
-    margin: 20px;
+    margin: 0px;
   }
   .boxes {
     flex-direction: column;
-    padding: 50px;
-    gap: 20px;
+    padding: 0px;
+    padding-top: 50px;
+    gap: 0px;
   }
 }
 

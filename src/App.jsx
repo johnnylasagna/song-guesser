@@ -18,25 +18,19 @@ function App() {
     <div className="main">
       <Heading text="Song Guessing Game" setShowGuesser={setShowGuesser} />
       {!showGuesser && (
-        <div>
-          <div className="boxes">
-            <Box type="youtube" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
-            <Box type="spotify" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
-            <Box type="apple" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
-          </div>
-          <Settings showOptions={showOptions} setShowOptions={setShowOptions} removeSong={removeSong} setRemoveSong={setRemoveSong} />
-          <div>
-            {/* <div className="marquee-container">
-              <span className="marquee">Spotify and Apple are still under construction</span>
-            </div> */}
-          </div>
+        <div className="boxes">
+          <Box type="youtube" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
+          <Box type="spotify" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
+          <Box type="apple" setShowGuesser={setShowGuesser} setShowPopup={setShowPopup} />
         </div>
       )}
+      {!showGuesser &&
+        <Settings showOptions={showOptions} setShowOptions={setShowOptions} removeSong={removeSong} setRemoveSong={setRemoveSong} />}
       {showGuesser && (
         <div className="boxes">
           <Guesser showOptions={showOptions} removeSong={removeSong} />
         </div>)}
-        {showPopup && <Popup setShowPopup={setShowPopup} />}
+      {showPopup && <Popup setShowPopup={setShowPopup} />}
       <Socials />
     </div>
   )
