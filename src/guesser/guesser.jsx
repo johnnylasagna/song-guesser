@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import YouTube from 'react-youtube';
@@ -18,7 +18,6 @@ function Guesser({ type, showOptions, removeSong }) {
     const [score, setScore] = useState(0);
     const [attempts, setAttempts] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
-    const [guessId, setGuessId] = useState("");
     const [filteredPlaylistData, setFilteredPlaylistData] = useState([]);
 
     const generateGuesses = async (data) => {
@@ -60,6 +59,10 @@ function Guesser({ type, showOptions, removeSong }) {
             console.error("Error fetching playlist data:", error);
         }
     };
+
+    useEffect(() => {
+        updateFilteredPlaylistData();
+    }, [searchTerm, playlistData]);
 
     const updateFilteredPlaylistData = () => {
         const filtered = playlistData.filter((video) => searchTerm ? video.title.toLowerCase().includes(searchTerm.toLowerCase()) : false);
@@ -134,15 +137,17 @@ function Guesser({ type, showOptions, removeSong }) {
                             }`}
                             onClick={() => {
                                 setSelectedIndex(index);
-                                setAttempts(attempts + 1);
+                                setAttempts((value) => value + 1);
                                 if (index === guessIndex) {
                                     setTimeout(() => {
                                         if (removeSong) {
                                             const newPlaylistData = playlistData.filter((song) => song.videoId !== video.videoId);
                                             setPlaylistData(newPlaylistData);
+                                            generateGuesses(newPlaylistData);
+                                        } else {
+                                            generateGuesses(playlistData);
                                         }
-                                        setScore(score + 1);
-                                        generateGuesses(playlistData);
+                                        setScore((value) => value + 1);
                                     }, 1500);
                                 }
                             }}
@@ -164,17 +169,17 @@ function Guesser({ type, showOptions, removeSong }) {
                             }`}
                             onClick={() => {
                                 setSelectedIndex(index);
-                                setAttempts(attempts + 1);
-                                // console.log("Selected video ID:", filteredPlaylistData[index]?.videoId);
-                                // console.log("Guess video ID:", guessPlaylistData[guessIndex]?.videoId);
+                                setAttempts((value) => value + 1);
                                 if (filteredPlaylistData[index]?.videoId === guessPlaylistData[guessIndex]?.videoId) {
                                     setTimeout(() => {
                                         if (removeSong) {
                                             const newPlaylistData = playlistData.filter((song) => song.videoId !== video.videoId);
                                             setPlaylistData(newPlaylistData);
+                                            generateGuesses(newPlaylistData);
+                                        } else {
+                                            generateGuesses(playlistData);
                                         }
-                                        setScore(score + 1);
-                                        generateGuesses(playlistData);
+                                        setScore((value) => value + 1);
                                     }, 1500);
                                 }
                             }}
@@ -186,7 +191,7 @@ function Guesser({ type, showOptions, removeSong }) {
                         </div>
                     ))}
                 </div>)}
-                {!showOptions && <input type="text" className="guesser-input" placeholder="Search songs" value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setSelectedIndex(null); updateFilteredPlaylistData()}}></input>}
+                {!showOptions && <input type="text" className="guesser-input" placeholder="Search songs" value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setSelectedIndex(null); updateFilteredPlaylistData() }}></input>}
             </div>
             <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10 } }} onReady={onReady} style={{ display: 'none' }} />
         </div >
