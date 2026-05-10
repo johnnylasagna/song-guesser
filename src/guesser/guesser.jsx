@@ -17,6 +17,9 @@ function Guesser({ type, showOptions, removeSong }) {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [score, setScore] = useState(0);
     const [attempts, setAttempts] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [guessId, setGuessId] = useState("");
+    const [filteredPlaylistData, setFilteredPlaylistData] = useState([]);
 
     const generateGuesses = async (data) => {
         if (showOptions) {
@@ -56,6 +59,11 @@ function Guesser({ type, showOptions, removeSong }) {
         } catch (error) {
             console.error("Error fetching playlist data:", error);
         }
+    };
+
+    const updateFilteredPlaylistData = () => {
+        const filtered = playlistData.filter((video) => searchTerm ? video.title.toLowerCase().includes(searchTerm.toLowerCase()) : false);
+        setFilteredPlaylistData(filtered);
     };
 
     const onReady = (event) => {
@@ -147,9 +155,9 @@ function Guesser({ type, showOptions, removeSong }) {
                     ))}
                 </div>)}
                 {!showOptions && (<div className='guesser-list-picker'>
-                    {playlistData.map((video, index) => (
+                    {filteredPlaylistData.map((video, index) => (
                         <div key={index} className={`guesser-list-pick ${selectedIndex === index
-                            ? index === guessIndex
+                            ? filteredPlaylistData[selectedIndex]?.videoId === guessPlaylistData[guessIndex]?.videoId
                                 ? "correct"
                                 : "wrong"
                             : ""
@@ -157,7 +165,9 @@ function Guesser({ type, showOptions, removeSong }) {
                             onClick={() => {
                                 setSelectedIndex(index);
                                 setAttempts(attempts + 1);
-                                if (index === guessIndex) {
+                                // console.log("Selected video ID:", filteredPlaylistData[index]?.videoId);
+                                // console.log("Guess video ID:", guessPlaylistData[guessIndex]?.videoId);
+                                if (filteredPlaylistData[index]?.videoId === guessPlaylistData[guessIndex]?.videoId) {
                                     setTimeout(() => {
                                         if (removeSong) {
                                             const newPlaylistData = playlistData.filter((song) => song.videoId !== video.videoId);
@@ -176,6 +186,7 @@ function Guesser({ type, showOptions, removeSong }) {
                         </div>
                     ))}
                 </div>)}
+                {!showOptions && <input type="text" className="guesser-input" placeholder="Search songs" value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setSelectedIndex(null); updateFilteredPlaylistData()}}></input>}
             </div>
             <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10 } }} onReady={onReady} style={{ display: 'none' }} />
         </div >

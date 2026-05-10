@@ -4,11 +4,12 @@ import { faMusic } from "@fortawesome/free-solid-svg-icons";
 
 import './box.css'
 
-function Box({ type, setShowGuesser }) {
+function Box({ type, setShowGuesser, setShowPopup }) {
 
     let heading = "";
     let icon = ""
     let buttonText = "";
+    let underConstruction = false;
 
     switch (type) {
         case "youtube":
@@ -20,11 +21,13 @@ function Box({ type, setShowGuesser }) {
             heading = "Spotify";
             icon = faSpotify;
             buttonText = "Upload Spotify Playlist";
+            underConstruction = true;
             break;
         case "apple":
             heading = "Apple";
             icon = faMusic;
             buttonText = "Upload Apple Music Playlist";
+            underConstruction = true;
             break;
         default:
             break;
@@ -35,7 +38,7 @@ function Box({ type, setShowGuesser }) {
             <div className='box-heading'>
                 {heading}
             </div>
-            <div className='box-button' onClick={() => setShowGuesser(true)}>
+            <div className='box-button' onClick={() => underConstruction ? setShowPopup(true) : setShowGuesser(true)}>
                 <FontAwesomeIcon icon={icon} size="4x"/>
                 <span>{buttonText}</span>
             </div>
