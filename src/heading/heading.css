@@ -4,8 +4,18 @@
 
     align-items: center;
     align-self: center;
-    flex: 1;
+    /* flex: 1; */
 }
+
+@media (max-width: 768px) {
+  .heading {
+    width: 80%;
+    font-size: 40px;
+    text-align: center;
+    text-wrap: wrap;
+  }
+}
+
 
 .heading:hover {
     cursor: pointer;

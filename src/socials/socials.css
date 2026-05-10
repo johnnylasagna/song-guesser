@@ -11,6 +11,16 @@
     bottom: 20px;
 }
 
+@media (max-width: 1207px) {
+  .socials {
+    /* flex-direction: column; */
+    padding: 50px;
+    gap: 20px;
+    position: relative;
+  };
+}
+
+
 .social-link {
     text-decoration: none;
     color: black;

@@ -17,6 +17,17 @@
   gap: 50px;
 }
 
+@media (max-width: 768px) {
+  .main {
+    margin: 20px;
+  }
+  .boxes {
+    flex-direction: column;
+    padding: 50px;
+    gap: 20px;
+  }
+}
+
 .marquee-container {
   width: 100%;
   overflow: hidden;
