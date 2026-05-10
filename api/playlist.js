@@ -34,12 +34,24 @@ export default async function handler(req, res) {
                 });
             }
 
-            // Keep only required fields
-            const currentVideos = (data.items ?? []).map((item) => ({
-                title: item.snippet.title,
-                videoId: item.snippet.resourceId.videoId,
-                thumbnail: item.snippet.thumbnails.medium.url,
-            }));
+            // Safely map playlist items
+            const currentVideos = (data.items ?? [])
+                .filter(
+                    (item) =>
+                        item?.snippet?.resourceId?.videoId
+                )
+                .map((item) => ({
+                    title:
+                        item.snippet?.title || "Unknown Title",
+
+                    videoId:
+                        item.snippet.resourceId.videoId,
+
+                    thumbnail:
+                        item.snippet?.thumbnails?.medium?.url ||
+                        item.snippet?.thumbnails?.default?.url ||
+                        "",
+                }));
 
             videos = [...videos, ...currentVideos];
 
@@ -47,12 +59,12 @@ export default async function handler(req, res) {
 
         } while (nextPageToken);
 
-        res.status(200).json(videos);
+        return res.status(200).json(videos);
 
     } catch (err) {
         console.error("Error fetching playlist:", err);
 
-        res.status(500).json({
+        return res.status(500).json({
             error: "Failed to fetch playlist",
         });
     }
