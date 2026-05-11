@@ -201,7 +201,13 @@ function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) 
                 </div>)}
                 {!showOptions && <input type="text" className="guesser-input" placeholder="Search songs" value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setSelectedIndex(null); updateFilteredPlaylistData() }}></input>}
             </div>
-            <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10, playsinline: 1 } }} onReady={onReady} style={{ display: 'none' }} />
+            <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10, playsinline: 1 } }} onReady={onReady} style={{
+                position: 'absolute',
+                width: '1px',
+                height: '1px',
+                opacity: 0.01,
+                pointerEvents: 'none',
+            }} />
         </div >
     )
 }
