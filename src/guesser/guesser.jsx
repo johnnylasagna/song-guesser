@@ -89,6 +89,7 @@ function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) 
                     Math.floor(Math.random() * (duration - 20)) + 10;
 
                 player.seekTo(randomTime, true);
+                player.unMute();
 
                 const seekCheck = setInterval(() => {
                     const current = player.getCurrentTime();
@@ -201,7 +202,7 @@ function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) 
                 </div>)}
                 {!showOptions && <input type="text" className="guesser-input" placeholder="Search songs" value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setSelectedIndex(null); updateFilteredPlaylistData() }}></input>}
             </div>
-            <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10, playsinline: 1 } }} onReady={onReady} style={{
+            <YouTube videoId={guessPlaylistData[guessIndex]?.videoId} opts={{ playerVars: { autoplay: 1, controls: 0, start: 10, playsinline: 1, mute: 1 } }} onReady={onReady} style={{
                 position: 'absolute',
                 width: '1px',
                 height: '1px',
