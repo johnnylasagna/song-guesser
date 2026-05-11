@@ -43,10 +43,9 @@ function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) 
     const getPlaylistData = async () => {
         if (!playlistId) return;
         if (playlistId === oldPlaylistId) { await generateGuesses(playlistData); return; }
-        setOldPlaylistId(playlistId);
         try {
             const res = await fetch(
-                `/api/playlist?playlistId=${playlistId}`
+                `/api/playlist?playlistId=${encodeURIComponent(playlistId)}`
             );
 
             if (!res.ok) {
@@ -62,6 +61,7 @@ function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) 
             if (!showOptions) {
                 videos.sort((a, b) => a.title.localeCompare(b.title));
             }
+            setOldPlaylistId(playlistId);
             await generateGuesses(videos);
         } catch (error) {
             console.error("Error fetching playlist data:", error);

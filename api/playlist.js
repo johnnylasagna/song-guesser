@@ -1,12 +1,33 @@
+function extractPlaylistId(input) {
+    try {
+        if (!input.includes("list=")) {
+            throw new Error("Input does not contain 'list=' parameter, treating as playlist ID");
+        }
+        const url = new URL(input);
+        return url.searchParams.get("list");
+    } catch {
+        // console.log("Input is not a valid URL, treating as playlist ID:", input);
+        return /^[a-zA-Z0-9_-]+$/.test(input)
+            ? input
+            : null;
+    }
+}
+
 export default async function handler(req, res) {
     const { playlistId } = req.query;
 
     const apiKey = process.env.YOUTUBE_API_KEY;
     const hasValidApiKey = apiKey && apiKey !== "your_key";
 
-    if (!playlistId || typeof playlistId !== "string") {
+    // console.log("Received playlistId:", playlistId);
+    
+    const playlistIdExtracted = extractPlaylistId(playlistId);
+
+    // console.log(playlistIdExtracted);
+
+    if (!playlistIdExtracted || typeof playlistIdExtracted !== "string") {
         return res.status(400).json({
-            error: "playlistId is required",
+            error: "Invalid playlist id or url",
         });
     }
 
@@ -16,13 +37,14 @@ export default async function handler(req, res) {
         });
     }
 
+
     try {
         let videos = [];
         let nextPageToken = "";
 
         do {
             const response = await fetch(
-                `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&pageToken=${nextPageToken}&playlistId=${playlistId}&key=${apiKey}`
+                `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&pageToken=${nextPageToken}&playlistId=${playlistIdExtracted}&key=${apiKey}`
             );
 
             const data = await response.json();
