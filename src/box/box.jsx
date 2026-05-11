@@ -4,7 +4,7 @@ import { faMusic } from "@fortawesome/free-solid-svg-icons";
 
 import './box.css'
 
-function Box({ type, setShowGuesser, setShowPopup }) {
+function Box({ type, setShowGuesser, setShowPopup, setPopupType }) {
 
     let heading = "";
     let icon = ""
@@ -38,7 +38,7 @@ function Box({ type, setShowGuesser, setShowPopup }) {
             <div className='box-heading'>
                 {heading}
             </div>
-            <div className='box-button' onClick={() => underConstruction ? setShowPopup(true) : setShowGuesser(true)}>
+            <div className='box-button' onClick={() => underConstruction ? (setShowPopup(true), setPopupType("boxes")) : setShowGuesser(true)}>
                 <FontAwesomeIcon icon={icon} size="4x"/>
                 <span>{buttonText}</span>
             </div>

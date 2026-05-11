@@ -34,7 +34,6 @@ export default async function handler(req, res) {
                 });
             }
 
-            // Safely map playlist items
             const currentVideos = (data.items ?? [])
                 .filter(
                     (item) =>

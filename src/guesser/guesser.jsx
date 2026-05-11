@@ -5,7 +5,7 @@ import YouTube from 'react-youtube';
 
 import './guesser.css'
 
-function Guesser({ type, showOptions, removeSong }) {
+function Guesser({ type, showOptions, removeSong, setShowPopup, setPopupType }) {
 
     const coverRef = useRef(null);
 
@@ -48,6 +48,14 @@ function Guesser({ type, showOptions, removeSong }) {
             const res = await fetch(
                 `/api/playlist?playlistId=${playlistId}`
             );
+
+            if (!res.ok) {
+                const data = await res.json();
+                setPopupType("guesser");
+                setShowPopup(true);
+                throw new Error(data?.error || "Failed to fetch playlist");
+            }
+
             const videos = await res.json();
             setPlaylistData(videos);
             console.log("Fetched playlist data:", videos);
